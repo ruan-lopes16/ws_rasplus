@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:8.4
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: RASPLUS
+      MYSQL_USER: rasmoo
+      MYSQL_PASSWORD: rasmoo
+    volumes:
+      - rasplus_mysql_data:/var/lib/mysql
+
+volumes:
+  rasplus_mysql_data:
