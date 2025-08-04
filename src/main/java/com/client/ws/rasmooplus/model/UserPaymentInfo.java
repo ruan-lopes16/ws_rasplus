@@ -32,7 +32,7 @@ public class UserPaymentInfo implements Serializable {
     @Column(name = "dt_payment")
     private LocalDate dtPayment;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
