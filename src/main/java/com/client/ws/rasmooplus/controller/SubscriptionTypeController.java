@@ -60,10 +60,4 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findById(id));
 
     }
-    // 'caçador' de exceção
-    @ExceptionHandler(NotFoundException.class) // quando tivermos uma exceção do tipo NotFoundException, ele fará o seguinte tratamento
-    public ResponseEntity<String> notFoundException(NotFoundException nfe) {
-        String errorMessage = nfe.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-    }
 }
