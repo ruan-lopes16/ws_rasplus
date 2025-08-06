@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 // Dizendo que é um controller > Spring irá gerenciar esta classe como um componente
 @RestController
@@ -34,5 +36,17 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
         // .body(subscriptionTypes): Define o corpo da resposta como a lista de objetos
         // SubscriptionType que foi recuperada do banco de dados. O Spring converte esta lista para JSON automaticamente.
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypes);
+    }
+
+    @GetMapping("/{id}") // método para responder as requisições
+    public ResponseEntity<SubscriptionType> findById(@PathVariable("id") Long id) { // PathVariable > identifica um trecho da URL(variavel de caminho)
+
+        SubscriptionType subscriptionType = subscriptionTypeService.findById(id);
+        if (Objects.nonNull(subscriptionType)) {    // Verifica se o objeto retornado do serviço não é nulo
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(subscriptionType);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(null);
     }
 }
