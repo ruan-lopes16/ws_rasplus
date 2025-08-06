@@ -1,15 +1,13 @@
 package com.client.ws.rasmooplus.controller;
 
+import com.client.ws.rasmooplus.exception.NotFoundException;
 import com.client.ws.rasmooplus.model.SubscriptionType;
 import com.client.ws.rasmooplus.repository.SubscriptionTypeRepository;
 import com.client.ws.rasmooplus.service.SubscriptionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,12 +39,31 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
     @GetMapping("/{id}") // método para responder as requisições
     public ResponseEntity<SubscriptionType> findById(@PathVariable("id") Long id) { // PathVariable > identifica um trecho da URL(variavel de caminho)
 
+/*  antes para fazer a validação do id passado na url
         SubscriptionType subscriptionType = subscriptionTypeService.findById(id);
         if (Objects.nonNull(subscriptionType)) {    // Verifica se o objeto retornado do serviço não é nulo
             return ResponseEntity.status(HttpStatus.OK)
                     .body(subscriptionType);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(null);
+ */
+
+/*  agora com tratamento de exceção > try-catch
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findById(id));
+
+        } catch (NotFoundException notFoundException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+
+        }
+*/
+        return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findById(id));
+
+    }
+    // 'caçador' de exceção
+    @ExceptionHandler(NotFoundException.class) // quando tivermos uma exceção do tipo NotFoundException, ele fará o seguinte tratamento
+    public ResponseEntity<String> notFoundException(NotFoundException nfe) {
+        String errorMessage = nfe.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 }
