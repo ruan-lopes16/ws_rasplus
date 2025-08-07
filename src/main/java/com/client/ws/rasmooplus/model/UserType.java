@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class UserType implements Serializable { // Serializable >>> transforma nosso objeto em um array de bytes ou em um formato de texto, para que melhore a navegação entre a rede ou que fique salvo em disco
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)     // autoincremental
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_type_id")                      // de acordo com a criação dos atributos no .sql
     private Long id;
     private String name;
