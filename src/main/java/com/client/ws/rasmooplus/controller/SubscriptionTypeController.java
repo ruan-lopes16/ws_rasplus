@@ -1,5 +1,6 @@
 package com.client.ws.rasmooplus.controller;
 
+import com.client.ws.rasmooplus.dto.SubscriptionTypeDto;
 import com.client.ws.rasmooplus.exception.NotFoundException;
 import com.client.ws.rasmooplus.model.SubscriptionType;
 import com.client.ws.rasmooplus.repository.SubscriptionTypeRepository;
@@ -59,5 +60,11 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
 */
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findById(id));
 
+    }
+
+    // criando coisas no banco de dados
+    @PostMapping
+    public ResponseEntity<SubscriptionType> create(@RequestBody SubscriptionTypeDto dto) { // passamos um corpo
+        return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionTypeService.create(dto));
     }
 }
