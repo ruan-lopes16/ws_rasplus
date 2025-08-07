@@ -1,6 +1,5 @@
 package com.client.ws.rasmooplus.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

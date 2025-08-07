@@ -36,7 +36,7 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
-    public SubscriptionType create(SubscriptionTypeDto dto) { // montando objeto
+    public SubscriptionType create(SubscriptionTypeDto dto) { // montando objeto com padrão builder > imutável
         return subscriptionTypeRepository.save(SubscriptionType.builder()
                         .id(dto.getId())
                         .name(dto.getName())
