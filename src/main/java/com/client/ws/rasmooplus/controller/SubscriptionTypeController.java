@@ -65,4 +65,10 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
     public ResponseEntity<SubscriptionType> create(@RequestBody SubscriptionTypeDto dto) { // passamos um corpo na requisição (JSON)
         return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionTypeService.create(dto));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SubscriptionType> create(@PathVariable("id") Long id, @RequestBody SubscriptionTypeDto dto) { // passamos um corpo na requisição (JSON)
+        return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.update(id, dto)); // me retorna um ok, e eu passo o id + dto
+    }
+
 }

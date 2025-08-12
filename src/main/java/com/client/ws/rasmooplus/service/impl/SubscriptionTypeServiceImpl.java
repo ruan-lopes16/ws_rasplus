@@ -28,13 +28,9 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Override
     public SubscriptionType findById(Long id) {
-        Optional<SubscriptionType> optionalSubscriptionType = subscriptionTypeRepository.findById(id); // Optional para evitar erros caso o item não exista (pode ser que encontre, mas pode ser que não)
-        if (optionalSubscriptionType.isEmpty()){
-            throw new NotFoundException("SubscriptionType not found.");
-        }
 
-        // se encontrou, retona o objeto SubscriptionType
-        return optionalSubscriptionType.get();
+        // pegando trecho/info do código/método privado isolado
+        return getSubscriptionType(id);
     }
 
     @Override
@@ -54,12 +50,30 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
-    public SubscriptionType update(Long id, SubscriptionType subscriptionType) {
-        return null;
+    public SubscriptionType update(Long id, SubscriptionTypeDto dto) {
+        // pegando trecho/info do código/método privado isolado
+        getSubscriptionType(id);
+
+        return subscriptionTypeRepository.save(SubscriptionType.builder()
+                .id(id)     // colocando id aqui, pois não preciso acessá-lo no dto, neste caso ele é um parametro
+                .name(dto.getName())
+                .accessMonth(dto.getAccessMonth())
+                .price(dto.getPrice())
+                .productKey(dto.getProductKey())
+                .build());
     }
 
     @Override
     public void delete(Long id) {
 
+    }
+
+    // isolando método, para ser reaproveitado por outros métodos
+    private SubscriptionType getSubscriptionType(Long id) {
+        Optional<SubscriptionType> optionalSubscriptionType = subscriptionTypeRepository.findById(id); // Optional para evitar erros caso o item não exista (pode ser que encontre, mas pode ser que não)
+        if (optionalSubscriptionType.isEmpty()){
+            throw new NotFoundException("SubscriptionType not found.");
+        }
+        return optionalSubscriptionType.get();
     }
 }
