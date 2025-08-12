@@ -71,4 +71,10 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.update(id, dto)); // me retorna um ok, e eu passo o id + dto
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){ // Void > irá apenas executar algo >>> não preciso passar minha RequestBody, pois irei fazer uma exclusão e é void
+        subscriptionTypeService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null); // em sucesso, me retorna um 204 nulo
+    }
+
 }

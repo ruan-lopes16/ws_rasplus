@@ -65,6 +65,9 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Override
     public void delete(Long id) {
+        getSubscriptionType(id);    // verificando se o id existe(método isolado)
+
+        subscriptionTypeRepository.deleteById(id); // em caso de OK > faz o Delete
 
     }
 
