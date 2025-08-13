@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 // Dizendo que é um controller > Spring irá gerenciar esta classe como um componente
 @RestController
@@ -68,7 +67,7 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SubscriptionType> create(@PathVariable("id") Long id, @RequestBody SubscriptionTypeDto dto) { // passamos um corpo na requisição (JSON)
+    public ResponseEntity<SubscriptionType> update(@PathVariable("id") Long id, @RequestBody SubscriptionTypeDto dto) { // passamos um corpo na requisição (JSON)
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.update(id, dto)); // me retorna um ok, e eu passo o id + dto
     }
 

@@ -19,11 +19,11 @@ public class SubscriptionTypeDto {
     private Long id;
 
     @NotBlank(message = "field `name` cannot be null or empty") // não nulo e nem vazio
-    @Size(min = 5, max = 30) // tem que ter de 5 a 30 caracteres
+    @Size(min = 5, max = 30, message = "the `name` field must be between 5 and 30 characters long") // tem que ter de 5 a 30 caracteres
     private String name;
 
     @Max(value = 12, message = "The `accessMonth` field cannot be greater than 12") // me permite colocar o máximo permitido, neste caso coloca-se value para colocar a quantidade + uma mensagem a ser exibida
-    private Long accessMonth;
+    private Long accessMonths;
 
     @NotNull(message = "field `price` cannot be null" )
     private BigDecimal price;
