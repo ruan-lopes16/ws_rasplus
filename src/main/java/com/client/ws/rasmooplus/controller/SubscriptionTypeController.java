@@ -3,6 +3,7 @@ package com.client.ws.rasmooplus.controller;
 import com.client.ws.rasmooplus.dto.SubscriptionTypeDto;
 import com.client.ws.rasmooplus.model.SubscriptionType;
 import com.client.ws.rasmooplus.service.SubscriptionTypeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +63,7 @@ public class SubscriptionTypeController { // qualquer método aqui só será exe
 
     // criando coisas no banco de dados
     @PostMapping
-    public ResponseEntity<SubscriptionType> create(@RequestBody SubscriptionTypeDto dto) { // passamos um corpo na requisição (JSON)
+    public ResponseEntity<SubscriptionType> create(@Valid @RequestBody SubscriptionTypeDto dto) { // @Valid > serve para conversar com as validações do dto - @RequestBody > passamos um corpo na requisição (JSON)
         return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionTypeService.create(dto));
     }
 
