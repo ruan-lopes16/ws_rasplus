@@ -3,6 +3,7 @@ package com.client.ws.rasmooplus.service.impl;
 import com.client.ws.rasmooplus.dto.SubscriptionTypeDto;
 import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.NotFoundException;
+import com.client.ws.rasmooplus.mapper.SubscriptionTypeMapper;
 import com.client.ws.rasmooplus.model.SubscriptionType;
 import com.client.ws.rasmooplus.repository.SubscriptionTypeRepository;
 import com.client.ws.rasmooplus.service.SubscriptionTypeService;
@@ -40,27 +41,17 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
         if (Objects.nonNull(dto.getId())){  // criando situação para um BadRequest
             throw new BadRequestException("id must be null");
         }
-        return subscriptionTypeRepository.save(SubscriptionType.builder()
-                        .id(dto.getId())
-                        .name(dto.getName())
-                        .accessMonth(dto.getAccessMonth())
-                        .price(dto.getPrice())
-                        .productKey(dto.getProductKey())
-                .build());
+        // foi isolado na classe SubscriptionTypeMapper
+        return subscriptionTypeRepository.save(SubscriptionTypeMapper.fromDtoToEntity(dto));
     }
 
     @Override
     public SubscriptionType update(Long id, SubscriptionTypeDto dto) {
         // pegando trecho/info do código/método privado isolado
         getSubscriptionType(id);
-
-        return subscriptionTypeRepository.save(SubscriptionType.builder()
-                .id(id)     // colocando id aqui, pois não preciso acessá-lo no dto, neste caso ele é um parametro
-                .name(dto.getName())
-                .accessMonth(dto.getAccessMonth())
-                .price(dto.getPrice())
-                .productKey(dto.getProductKey())
-                .build());
+        dto.setId(id);
+        // foi isolado na classe SubscriptionTypeMapper
+        return subscriptionTypeRepository.save(SubscriptionTypeMapper.fromDtoToEntity(dto));
     }
 
     @Override
