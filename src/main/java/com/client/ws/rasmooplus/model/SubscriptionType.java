@@ -1,23 +1,22 @@
 package com.client.ws.rasmooplus.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 // lombok > evitar repetição de código
 @Data
+@EqualsAndHashCode(callSuper = false) // não chama mais o equals e hashcode da RepresentationModel
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
 @Entity
 @Table(name = "subscriptions_type")
-public class SubscriptionType implements Serializable {
+public class SubscriptionType extends RepresentationModel<SubscriptionType> implements Serializable {     // RepresentationModel > dizendo agora é um objeto q contem dados, liks etc
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
