@@ -3,6 +3,7 @@ package com.client.ws.rasmooplus.exception.handler;
 import com.client.ws.rasmooplus.dto.error.ErrorResponseDto;
 import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.NotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -65,6 +66,16 @@ associando o nome do campo à sua respectiva mensagem de erro
                 .message(Arrays.toString(messages.entrySet().toArray())) // array simples com os campos e nomes(chave-valor > ["name"="bla bla bla"]) e os transforma em uma unica string
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .build());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class) // quando tivermos uma exceção do tipo BadRequestException, ele fará o seguinte tratamento
+    public ResponseEntity<ErrorResponseDto> badRequestException(DataIntegrityViolationException dataIntegrityViolationException) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto.builder()      // builder >>> iremos construi-lo(JSON) apartir deste método
+                .message(dataIntegrityViolationException.getMessage())                      // pegando mensagem que irá ser ixibida
+                .httpStatus(HttpStatus.BAD_REQUEST)               // indicando qual erro deve apresentar
+                .statusCode(HttpStatus.BAD_REQUEST.value())       // pegando numero código do status da requisição `.value()`
                 .build());
     }
 }
