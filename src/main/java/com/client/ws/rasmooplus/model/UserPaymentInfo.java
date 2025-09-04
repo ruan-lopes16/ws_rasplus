@@ -22,13 +22,13 @@ public class UserPaymentInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_payment_info")
+    @Column(name = "user_payment_info_id")
     private Long id;
 
-    @Column(name = "card_number")
+    @Column(name = "card_number",unique = true)
     private String cardNumber;
 
-    @Column(name = "card_expiration_months")
+    @Column(name = "card_expiration_month")
     private Long cardExpirationMonth;
 
     @Column(name = "card_expiration_year")
@@ -45,5 +45,8 @@ public class UserPaymentInfo implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "instalments")
+    private Integer instalments;
 
 }

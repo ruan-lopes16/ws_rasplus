@@ -62,5 +62,5 @@ INSERT INTO `subscriptions_type` (`name`,`access_months`,`price`,`product_key`) 
 INSERT INTO `subscriptions_type` (`name`,`access_months`,`price`,`product_key`) VALUES ('PLANO VITALICIO',NULL,1497.00,'PERPETUAL22');
 
 INSERT INTO `user_type` (`name`,`description`) VALUES ('PROFESSOR','Professores da plataforma - cadastro administrativo');
-INSERT INTO `user_type` (`name`,`description`) VALUES ('ADMINISTRADOR','Administrador da plataforma - cadastro administrativo');
+INSERT INTO `user_type` (`name`,`description`) VALUES ('ADMINISTRADOR','Administrado da plataforma - cadastro administrativo');
 INSERT INTO `user_type` (`name`,`description`) VALUES ('ALUNO','Aluno da plataforma - cadastro via fluxo normal');

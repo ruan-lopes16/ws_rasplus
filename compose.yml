@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: rasplus
       MYSQL_USER: rasmoo
-      MYSQL_PASSWORD: rasmoo
+      MYSQL_PASSWORD: senha123
     volumes:
       - rasplus_mysql_data:/var/lib/mysql
 
