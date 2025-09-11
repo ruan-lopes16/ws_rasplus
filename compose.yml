@@ -1,5 +1,5 @@
 services:
-  db:
+  mysql:
     image: mysql:8.4
     ports:
       - 3306:3306
@@ -9,8 +9,24 @@ services:
       MYSQL_DATABASE: rasplus
       MYSQL_USER: rasmoo
       MYSQL_PASSWORD: senha123
+    # volumes -> ao restartar não será perdido as coisas do banco > alocação de dados no host que o container está sendo executado
     volumes:
-      - rasplus_mysql_data:/var/lib/mysql
+      - mysql_data_container:/data/db  # identificador de volume:/onde vai ficar salvado
 
+  # configurando mongoDB
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017 # porta padrão mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rasmoo
+      MONGO_INITDB_ROOT_PASSWORD: senha123
+    volumes:
+      - mongo_data_container:/data/db  # identificador de volume:/onde vai ficar salvado
+
+# volumes -> ao restartar não será perdido as coisas do banco > alocação de dados no host que o container está sendo executado
+# declando volumes no escopo do serviço
 volumes:
-  rasplus_mysql_data:
+  mysql_data_container:
+  mongo_data_container:
